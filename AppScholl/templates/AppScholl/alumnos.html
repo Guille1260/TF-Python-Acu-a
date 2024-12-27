@@ -1,0 +1,56 @@
+{% extends 'AppScholl/base.html' %}
+
+
+{% block contenido %}
+    <main class="conteiner-main" id="alumnos">
+        <div class="conteiner-titulo">
+            <h1>Alumnos</h1>
+        </div>
+        <section class="seccion-buscar-filtros">
+            <article class="conteiner-buscar">
+              <form method="GET" action="{% url 'Alumnos' %}">
+                {% csrf_token %}
+                {{ buscar.as_p }}
+                <button type="submit">Buscar</button>
+                
+              </form>
+            </article>
+            
+        </section>
+        <section class="seccion-tabla">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">nombre</th>
+                <th scope="col">apellido</th>
+                <th scope="col">dni</th>
+                <th scope="col">curso</th>
+                <th scope="col">edad</th>
+                <th scope="col">botones</th>
+                <th scope="col"><a href="{% url 'AddAlumno' %}"><i class="fa-solid fa-plus btn-mas btn">añadir</i></a></th>
+             
+              </tr>
+            </thead>
+            <tbody>
+              
+              {% for alumno in alumnos %}
+              <tr>
+                <td>{{alumno.nombre}}</td>
+                <td>{{alumno.apellido}}</td>
+                <td>{{alumno.documento}}</td>
+                <td>{{alumno.cursos_comisiones}}</td>
+                <td>{{alumno.edad}}</td>
+                <td>
+                  <a href="{% url 'ModAlumno'  %}"><i class="fa-solid fa-pencil btn btn-mas"></i></a>
+                  <a href=""><i class="fa-solid fa-trash btn btn-mas"></i></a>
+                </td>
+                
+              </tr>
+              {% endfor %}
+                
+            </tbody>
+          </table>
+        </section>
+    </main>
+{% endblock contenido %}
+    

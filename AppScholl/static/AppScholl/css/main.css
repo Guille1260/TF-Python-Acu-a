@@ -1,0 +1,689 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: grid;
+  grid-template-areas: "encabezado" "main" "pie";
+  row-gap: 10px;
+  background: #012030;
+}
+body .conteiner-header {
+  grid-area: encabezado;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+}
+body .conteiner-main {
+  grid-area: main;
+  margin: 130px 10px;
+}
+body .conteiner-footer {
+  grid-area: pie;
+}
+
+.btn-menu {
+  color: aqua;
+}
+@media screen and (min-width: 1023px) {
+  .btn-menu {
+    display: none;
+  }
+}
+
+.btn-mas {
+  font-size: 15px;
+  color: #0d0e0c;
+}
+
+.table {
+  border: 1px solid #BDE038;
+  background-color: #fff;
+  color: #333;
+  border-collapse: collapse;
+  width: 100%;
+}
+.table th {
+  background-color: #BDE038;
+  color: #fff;
+  padding: 12px;
+  text-align: left;
+}
+.table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+.table tr:nth-child(even) {
+  background-color: #f4f4f4;
+}
+.table tr:hover {
+  background-color: #BDE038;
+  color: #fff;
+}
+
+.card {
+  border: 2px solid #DBF227;
+  background: #275950;
+  color: #91F2E9;
+}
+
+.conteiner-header {
+  display: grid;
+  grid-template-areas: "ofertas" "inferior";
+  grid-template-rows: auto 80px;
+}
+.conteiner-header .conteiner-ofertas {
+  grid-area: ofertas;
+  text-align: center;
+  justify-items: center;
+  border: 1px solid black;
+  background: #040A0A;
+  width: 100%;
+}
+.conteiner-header .conteiner-ofertas p {
+  margin: auto;
+  padding: 5px;
+  color: #BDE038;
+}
+@media screen and (max-width: 1023px) {
+  .conteiner-header .conteiner-ofertas .oferta-texto {
+    display: none;
+  }
+}
+.conteiner-header .conteiner-inferior {
+  grid-area: inferior;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  align-content: center;
+  align-items: center;
+  border-bottom: 1px solid #BDE038;
+  background: #042940;
+}
+
+.conteiner-footer {
+  display: grid;
+  grid-template-areas: "superior" "inferior";
+  grid-template-rows: auto auto;
+  border: 1px solid black;
+}
+.conteiner-footer .conteiner-superior {
+  grid-area: superior;
+  display: grid;
+  grid-template-areas: "uno" "dos";
+  text-align: center;
+  align-items: center;
+  background: #040A0A;
+  color: #D6D58E;
+  border-top: 1px solid #e038d2;
+}
+.conteiner-footer .conteiner-superior .menu-mapa {
+  list-style: none;
+  margin-right: 30px;
+  color: #BDE038;
+}
+.conteiner-footer .conteiner-superior .menu-mapa .nav-link {
+  text-transform: uppercase;
+}
+@media screen and (min-width: 767px) {
+  .conteiner-footer .conteiner-superior {
+    grid-template-areas: "uno dos";
+  }
+}
+.conteiner-footer .conteiner-inferior {
+  grid-area: inferior;
+  border-top: 1px solid black;
+  text-align: center;
+  justify-items: center;
+  background: #042940;
+}
+.conteiner-footer .conteiner-inferior p {
+  margin: auto;
+  padding: 5px;
+  color: #DBF227;
+}
+
+.menu-desk {
+  display: flex;
+  list-style: none;
+  margin: auto;
+  color: #DBF227;
+}
+.menu-desk .nav-link {
+  margin: 10px;
+  text-transform: uppercase;
+  padding: 5px;
+}
+.menu-desk .sesion {
+  border: 1px solid white;
+}
+@media screen and (max-width: 1023px) {
+  .menu-desk {
+    display: none;
+  }
+}
+
+#Home {
+  display: grid;
+  grid-template-areas: "banner" "servicios" "cursos" "carreras" "profecionales";
+  row-gap: 90px;
+}
+#Home .conteiner-banner {
+  grid-area: banner;
+  margin-top: 10px;
+  width: 100%;
+  height: 70vh;
+  text-align: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  border: 1px solid;
+  border: 12px solidrgb(56, 224, 112);
+  color: #ffffff;
+  background-image: url("https://uploads-ssl.webflow.com/61f7efd44d01cc87c88dc6f3/6318e2916ddc28d60d89d319_Coding%20Vs.%20Programming%2002.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#Home .conteiner-banner h1 {
+  margin-bottom: 150px;
+  text-transform: uppercase;
+  color: #91F2E9;
+}
+#Home .conteiner-banner p {
+  text-align: center;
+  width: auto;
+  border: 1px solid #DBF227;
+  margin-left: 20px;
+  background: rgba(0, 0, 0, 0.3490196078);
+  color: #DBF227;
+  text-transform: uppercase;
+}
+#Home .seccion-servicios {
+  grid-area: servicios;
+  width: 100%;
+}
+#Home .seccion-servicios h2 {
+  text-align: center;
+  width: 100%;
+  color: #BDE038;
+  text-transform: uppercase;
+}
+#Home .seccion-servicios .conteiner-servicios {
+  text-align: center;
+  justify-items: center;
+}
+#Home .seccion-servicios .conteiner-servicios .card {
+  margin: 10px;
+}
+@media screen and (min-width: 767px) {
+  #Home .seccion-servicios .conteiner-servicios {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+  }
+}
+#Home .seccion-cursos {
+  grid-area: cursos;
+  text-align: center;
+  justify-items: center;
+  border-top: 1px solid #BDE038;
+}
+#Home .seccion-cursos .conteiner-cursos {
+  display: grid;
+  column-gap: 10px;
+  grid-template-columns: repeat(1, 1fr);
+}
+@media screen and (min-width: 767px) {
+  #Home .seccion-cursos .conteiner-cursos {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (min-width: 1023px) {
+  #Home .seccion-cursos .conteiner-cursos {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+#Home .seccion-cursos h2 {
+  text-align: center;
+  width: 100%;
+  color: #BDE038;
+  text-transform: uppercase;
+}
+#Home .seccion-cursos .card {
+  margin-top: 80px;
+}
+#Home .seccion-cursos .boton {
+  margin-top: 20px;
+}
+#Home .seccion-cursos .boton button {
+  color: #BDE038;
+  text-transform: uppercase;
+  border: 1px solid #BDE038;
+}
+#Home .seccion-carrera {
+  grid-area: carreras;
+  border-top: 1px solid #BDE038;
+  text-align: center;
+  justify-items: center;
+}
+#Home .seccion-carrera .conteiner-carreras {
+  display: grid;
+  column-gap: 10px;
+  grid-template-columns: repeat(1, 1fr);
+}
+@media screen and (min-width: 767px) {
+  #Home .seccion-carrera .conteiner-carreras {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (min-width: 1023px) {
+  #Home .seccion-carrera .conteiner-carreras {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+#Home .seccion-carrera h2 {
+  text-align: center;
+  width: 100%;
+  color: #BDE038;
+  text-transform: uppercase;
+}
+#Home .seccion-carrera .card {
+  margin-top: 80px;
+}
+#Home .seccion-carrera .boton {
+  margin-top: 20px;
+}
+#Home .seccion-carrera .boton button {
+  color: #BDE038;
+  text-transform: uppercase;
+  border: 1px solid #BDE038;
+}
+#Home .seccion-profesionales {
+  border-top: 1px solid #BDE038;
+  grid-area: profecionales;
+  text-align: center;
+  justify-items: center;
+}
+#Home .seccion-profesionales .conteiner-profesionales {
+  display: grid;
+  column-gap: 10px;
+  grid-template-columns: repeat(1, 1fr);
+}
+@media screen and (min-width: 767px) {
+  #Home .seccion-profesionales .conteiner-profesionales {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (min-width: 1023px) {
+  #Home .seccion-profesionales .conteiner-profesionales {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+#Home .seccion-profesionales h2 {
+  text-align: center;
+  width: 100%;
+  color: #BDE038;
+  text-transform: uppercase;
+}
+#Home .seccion-profesionales .card {
+  margin-top: 80px;
+}
+#Home .seccion-profesionales .boton {
+  margin-top: 20px;
+}
+#Home .seccion-profesionales .boton button {
+  color: #BDE038;
+  text-transform: uppercase;
+  border: 1px solid #BDE038;
+}
+
+#cursos {
+  display: grid;
+  grid-template-areas: "titulo" "fb" "tarjetas" "tabla";
+  grid-template-rows: 60px;
+  row-gap: 10px;
+}
+#cursos .conteiner-titulo {
+  grid-area: titulo;
+  text-align: center;
+  color: #BDE038;
+  text-transform: uppercase;
+  border-bottom: 1px solid #BDE038;
+}
+#cursos .seccion-buscar-filtros {
+  grid-area: fb;
+  grid-template-areas: "buscar" "filtros";
+  row-gap: 10px;
+}
+#cursos .seccion-buscar-filtros .conteiner-buscar {
+  grid-area: buscar;
+  text-align: center;
+  color: #BDE038;
+  text-transform: uppercase;
+}
+#cursos .seccion-buscar-filtros .conteiner-buscar input {
+  margin: 10px;
+}
+#cursos .seccion-buscar-filtros .conteiner-filtros {
+  grid-area: filtros;
+  border: 1px solid black;
+  text-align: center;
+  color: #BDE038;
+  text-transform: uppercase;
+}
+#cursos .seccion-buscar-filtros .conteiner-filtros button {
+  margin: 10px;
+}
+#cursos .seccion-tarjetas {
+  grid-area: tarjetas;
+  display: grid;
+  grid-template-columns: repeat(1, auto);
+  row-gap: 10px;
+  column-gap: 10px;
+  justify-content: center;
+  border: 1px solid black;
+}
+@media screen and (min-width: 765px) {
+  #cursos .seccion-tarjetas {
+    grid-template-columns: repeat(2, auto);
+  }
+}
+@media screen and (min-width: 1023px) {
+  #cursos .seccion-tarjetas {
+    grid-template-columns: repeat(3, auto);
+  }
+}
+@media screen and (min-width: 1300px) {
+  #cursos .seccion-tarjetas {
+    grid-template-columns: repeat(4, auto);
+  }
+}
+#cursos .seccion-tabla {
+  grid-area: tabla;
+  margin-top: 10px;
+}
+#cursos .seccion-tabla a {
+  list-style: none;
+}
+
+#carreras {
+  display: grid;
+  grid-template-areas: "titulo" "fb" "tarjetas" "tabla";
+  grid-template-rows: 60px;
+  border: 1px solid black;
+  row-gap: 10px;
+}
+#carreras .conteiner-titulo {
+  grid-area: titulo;
+  text-align: center;
+  color: #BDE038;
+  text-transform: uppercase;
+  border-bottom: 1px solid #BDE038;
+}
+#carreras .seccion-buscar-filtros {
+  grid-area: fb;
+  grid-template-areas: "buscar" "filtros";
+  row-gap: 10px;
+}
+#carreras .seccion-buscar-filtros .conteiner-buscar {
+  grid-area: buscar;
+  text-align: center;
+  color: #BDE038;
+  text-transform: uppercase;
+}
+#carreras .seccion-buscar-filtros .conteiner-buscar input {
+  margin: 10px;
+}
+#carreras .seccion-buscar-filtros .conteiner-filtros {
+  grid-area: filtros;
+  text-align: center;
+  color: #BDE038;
+  text-transform: uppercase;
+}
+#carreras .seccion-buscar-filtros .conteiner-filtros button {
+  margin: 10px;
+}
+#carreras .seccion-tarjetas {
+  grid-area: tarjetas;
+  display: grid;
+  grid-template-columns: repeat(1, auto);
+  row-gap: 10px;
+  column-gap: 10px;
+  justify-content: center;
+  border: 1px solid black;
+}
+@media screen and (min-width: 765px) {
+  #carreras .seccion-tarjetas {
+    grid-template-columns: repeat(2, auto);
+  }
+}
+@media screen and (min-width: 1023px) {
+  #carreras .seccion-tarjetas {
+    grid-template-columns: repeat(3, auto);
+  }
+}
+@media screen and (min-width: 1300px) {
+  #carreras .seccion-tarjetas {
+    grid-template-columns: repeat(4, auto);
+  }
+}
+#carreras .seccion-tabla {
+  grid-area: tabla;
+  margin-top: 10px;
+}
+
+#alumnos {
+  display: grid;
+  grid-template-areas: "titulo" "fb" "tabla";
+  grid-template-rows: 60px;
+  border: 1px solid black;
+  row-gap: 10px;
+}
+#alumnos .conteiner-titulo {
+  grid-area: titulo;
+  text-align: center;
+  color: #BDE038;
+  text-transform: uppercase;
+  border-bottom: 1px solid #BDE038;
+}
+#alumnos .seccion-buscar-filtros {
+  grid-area: fb;
+  grid-template-areas: "buscar" "filtros";
+  row-gap: 10px;
+}
+#alumnos .seccion-buscar-filtros .conteiner-buscar {
+  grid-area: buscar;
+  color: #BDE038;
+  text-transform: uppercase;
+  text-align: center;
+}
+#alumnos .seccion-buscar-filtros .conteiner-buscar input {
+  margin: 10px;
+}
+#alumnos .seccion-buscar-filtros .conteiner-filtros {
+  grid-area: filtros;
+  text-align: center;
+  color: #BDE038;
+  text-transform: uppercase;
+}
+#alumnos .seccion-buscar-filtros .conteiner-filtros button {
+  margin: 10px;
+}
+#alumnos .seccion-tabla {
+  grid-area: tabla;
+  margin-top: 10px;
+}
+
+#profesionales {
+  display: grid;
+  grid-template-areas: "titulo" "fb" "tarjetas" "tabla";
+  grid-template-rows: 60px;
+  border: 1px solid black;
+  row-gap: 10px;
+}
+#profesionales .conteiner-titulo {
+  grid-area: titulo;
+  text-align: center;
+  color: #BDE038;
+  text-transform: uppercase;
+  border-bottom: 1px solid #BDE038;
+}
+#profesionales .seccion-buscar-filtros {
+  grid-area: fb;
+  grid-template-areas: "buscar" "filtros";
+  row-gap: 10px;
+}
+#profesionales .seccion-buscar-filtros .conteiner-buscar {
+  grid-area: buscar;
+  text-align: center;
+  color: #BDE038;
+  text-transform: uppercase;
+}
+#profesionales .seccion-buscar-filtros .conteiner-buscar input {
+  margin: 10px;
+}
+#profesionales .seccion-buscar-filtros .conteiner-filtros {
+  grid-area: filtros;
+  color: #BDE038;
+  text-transform: uppercase;
+  text-align: center;
+}
+#profesionales .seccion-buscar-filtros .conteiner-filtros button {
+  margin: 10px;
+}
+#profesionales .seccion-tarjetas {
+  grid-area: tarjetas;
+  display: grid;
+  grid-template-columns: repeat(1, auto);
+  row-gap: 10px;
+  column-gap: 10px;
+  justify-content: center;
+  border: 1px solid black;
+}
+@media screen and (min-width: 765px) {
+  #profesionales .seccion-tarjetas {
+    grid-template-columns: repeat(2, auto);
+  }
+}
+@media screen and (min-width: 1023px) {
+  #profesionales .seccion-tarjetas {
+    grid-template-columns: repeat(3, auto);
+  }
+}
+@media screen and (min-width: 1300px) {
+  #profesionales .seccion-tarjetas {
+    grid-template-columns: repeat(4, auto);
+  }
+}
+#profesionales .seccion-tabla {
+  grid-area: tabla;
+  margin-top: 10px;
+}
+
+#login {
+  justify-items: center;
+  align-items: center;
+}
+#login .conteiner-formulario {
+  width: 400px;
+  height: 450px;
+  border: 1px solid #BDE038;
+  text-align: center;
+  display: grid;
+  grid-template-areas: "titulo" "campos" "pregunta";
+  grid-template-rows: 15% 70% 15%;
+}
+#login .conteiner-formulario .conteiner-titulo {
+  grid-area: titulo;
+  color: #BDE038;
+  text-transform: uppercase;
+  border-bottom: 1px solid #BDE038;
+  align-content: center;
+}
+#login .conteiner-formulario .formulario {
+  grid-area: campos;
+  color: #BDE038;
+  margin: auto;
+  text-transform: uppercase;
+}
+#login .conteiner-formulario .formulario .form-usuario {
+  display: flex;
+}
+#login .conteiner-formulario .formulario .form-contraseña {
+  display: flex;
+}
+#login .conteiner-formulario .conteiner-preguntas {
+  grid-area: pregunta;
+  align-content: center;
+}
+#login .conteiner-formulario .conteiner-preguntas a {
+  text-decoration: none;
+  color: #BDE038;
+}
+
+#addcurso {
+  justify-items: center;
+  align-items: center;
+}
+#addcurso .conteiner-formulario {
+  width: 50%;
+  height: 450px;
+  border: 1px solid #BDE038;
+  text-align: center;
+  display: grid;
+  grid-template-areas: "titulo" "campos";
+  grid-template-rows: 15% 85%;
+}
+#addcurso .conteiner-formulario .conteiner-titulo {
+  grid-area: titulo;
+  color: #BDE038;
+  text-transform: uppercase;
+  border-bottom: 1px solid #BDE038;
+  align-content: center;
+}
+#addcurso .conteiner-formulario .formulario {
+  grid-area: campos;
+  text-align: center;
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+  align-items: center;
+  color: #DBF227;
+}
+
+#modcurso {
+  justify-items: center;
+  align-items: center;
+}
+#modcurso .conteiner-formulario {
+  width: 50%;
+  height: 450px;
+  border: 1px solid #BDE038;
+  text-align: center;
+  display: grid;
+  grid-template-areas: "titulo" "campos";
+  grid-template-rows: 15% 85%;
+}
+#modcurso .conteiner-formulario .conteiner-titulo {
+  grid-area: titulo;
+  color: #BDE038;
+  text-transform: uppercase;
+  border-bottom: 1px solid #BDE038;
+  align-content: center;
+}
+#modcurso .conteiner-formulario .formulario {
+  grid-area: campos;
+  text-align: center;
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+  align-items: center;
+  color: #DBF227;
+}
+
+/*# sourceMappingURL=main.css.map */

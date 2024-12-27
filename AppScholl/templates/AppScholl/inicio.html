@@ -1,0 +1,117 @@
+{% extends 'AppScholl/base.html' %}
+
+
+{% block contenido %}
+    <main class="conteiner-main" id="Home">
+        <section class="conteiner-banner">
+            <h1>¡Bienvenidos!</h1>
+            <p>Somos la casa del codigo una intitucion con modalidad virtual</p>
+        </section>
+        <section class="seccion-servicios">
+            <h2>Servicios</h2>
+            <div class="conteiner-servicios">
+                
+                
+                <div class="card" style="width: 18rem;">
+                    <img src="https://i.pinimg.com/originals/1c/54/f7/1c54f7b06d7723c21afc5035bf88a5ef.png" class="card-img-top" alt="..." style="object-fit: cover; height: 200px;">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                    </div>
+                </div>
+                
+                <div class="card" style="width: 18rem;">
+                    <img src="https://th.bing.com/th/id/OIP.CBRAkkXE_iQ1iFXbG27QcgHaFE?w=1024&h=700&rs=1&pid=ImgDetMain" class="card-img-top" alt="..." style="object-fit: cover; height: 200px;">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                    </div>
+                </div>
+                
+                <div class="card" style="width: 18rem;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/10316/10316696.png" class="card-img-top" alt="..." style="object-fit: cover; height: 200px;">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                    </div>
+                </div>
+                
+                
+                    
+                
+            </div>
+        </section>
+        <section class="seccion-cursos">
+            <h2>Nuestros cursos</h2>
+            <article class="conteiner-cursos">
+                {% for curso in cursos %}
+                    <div class="col-md-4"> <!-- En pantallas medianas o más grandes, se mostrarán 3 tarjetas por fila -->
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                        <h5 class="card-title">{{ curso.nombre }}</h5>
+                        <hr>
+                        <p class="card-text">{{ curso.dia }}</p>
+                        <p class="card-text">{{ curso.hora }}</p>
+                        <p class="card-text">Duración: {{ curso.duracion }} semanas</p>
+                        </div>
+                    </div>
+                    </div>
+                {% endfor %}
+            </article>
+            <article class="boton">
+                <a href="{% url 'Cursos' %}">
+                    <button type="button" class="btn">Mas cursos </button>
+                </a>
+                
+            </article>
+        </section>
+        <section class="seccion-carrera">
+            <h2>Nuestras carreras</h2>
+            <article class="conteiner-carreras">
+                {% for carrera in carreras %}
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                        <h5 class="card-title">{{carrera.nombre}}</h5>
+                        <hr>
+                        <p class="card-text">{{carrera.dia}} </p>
+                        <p class="card-text">{{carrera.hora}} </p>
+                        <p class="card-text">duracion : {{carrera.duracion}} semnas </p>
+                        </div>
+                    
+                    </div>
+                {% endfor %}
+            </article>
+            <article class="boton">
+                <a href="{% url 'Carreras' %}">
+                    <button type="button" class="btn">Mas carreras </button>
+                </a>
+            </article>
+        </section>
+        <section class="seccion-profesionales">
+            <h2>Nuestros Profecionales</h2>
+            <article class="conteiner-profesionales">
+                {% for profesional in profesionales %}
+                    <div class="card tarjeta" style="width: 18rem;">
+                        <div class="card-body">
+                        <h5 class="card-title">{{profesional.nombre}}</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">{{profesional.profesion}}</h6>
+                        <p class="card-text">{{profesional.presentacion}}</p>
+                        <p class="card-text">rol {{profesional.rol}}</p>
+                        </div>
+                    
+                    </div>
+                {% endfor %}
+            </article>
+            <article class="boton">
+                <a href="{% url 'Profesionales' %}">
+                    <button type="button" class="btn"> Conocer nuetros profesionales  </button>
+                </a>
+            </article>
+        </section>
+        
+    </main>
+{% endblock contenido %}
+    

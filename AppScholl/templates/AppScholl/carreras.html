@@ -1,0 +1,74 @@
+{% extends 'AppScholl/base.html' %}
+
+{% block contenido %}
+    <main class="conteiner-main" id="carreras">
+        <article class="conteiner-titulo">
+            <h1>Carreras</h1>
+        </article>
+        <section class="seccion-buscar-filtros">
+            <article class="conteiner-buscar">
+              <form method="GET" action="{% url 'Carreras' %}">
+                {% csrf_token %}
+                {{ buscar.as_p }}
+                <button type="submit">Buscar</button>
+                <article class="conteiner-filtros">
+                  <h2>Filtros</h2>
+                  <button type="submit" name="filtro" value="data">Data</button>
+                  <button type="submit" name="filtro" value="programacion">Programación</button>
+                  <button type="submit" name="filtro" value="diseno">Diseño</button>
+                  <button type="submit" name="filtro" value="marketing">Marketing</button>
+              </article>
+              </form>
+            </article>
+            
+        </section>
+        <section class="seccion-tarjetas">
+          {% for carrera in carreras %}
+          <div class="card" style="width: 18rem;">
+              <div class="card-body">
+              <h5 class="card-title">{{carrera.nombre}}</h5>
+              <hr>
+              <p class="card-text">{{carrera.dia}} </p>
+              <p class="card-text">{{carrera.hora}} </p>
+              <p class="card-text">duracion : {{carrera.duracion}} semnas </p>
+              </div>
+          
+          </div>
+          {% endfor %}
+            
+            
+        </section>
+        <section class="seccion-tabla">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">nombre</th>
+                <th scope="col">dias</th>
+                <th scope="col">hora</th>
+                <th scope="col">duracion/semanas</th>
+                <th scope="col">botones</th>
+                <th scope="col"><a href="{% url 'AddCarrera' %}"><i class="fa-solid fa-plus btn-mas btn">añadir</i></a></th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              
+              {% for carrera in carreras %}
+              <tr>
+                <td>{{carrera.nombre}}</td>
+                <td>{{carrera.dia}}</td>
+                <td>{{carrera.hora}}</td>
+                <td>{{carrera.duracion}} semanas</td>
+                <td>
+                  <a href="{% url 'ModCarrera'  %}"><i class="fa-solid fa-pencil btn btn-mas"></i></a>
+                  <a href=""><i class="fa-solid fa-trash btn btn-mas"></i></a>
+                </td>
+              </tr>
+              {% endfor %}
+                
+            </tbody>
+          </table>
+        </section>
+    </main>
+{% endblock contenido %}
+    

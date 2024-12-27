@@ -1,0 +1,17 @@
+{% extends 'AppScholl/base.html' %}
+
+{% block contenido %}
+    <main class="conteiner-main" id="addcurso">
+        <section class="conteiner-formulario">
+        <div class="conteiner-titulo">
+            <h1>Añadir alumno</h1>
+        </div>
+        
+        <form method="POST" class="formulario">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit"> Cargar  Curso </button>
+        </form>
+        </section>
+    </main>
+{% endblock contenido %}

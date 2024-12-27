@@ -1,0 +1,130 @@
+#Home
+    display: grid
+    grid-template-areas: "banner""servicios""cursos""carreras""profecionales"
+    row-gap: 90px
+    .conteiner-banner
+        grid-area: banner
+        margin-top: 10px
+        width: 100%
+        height: 70vh
+        text-align: center
+        align-content: center
+        justify-content: center
+        justify-items: center
+        border: 1px solid 
+        border: 12px solidrgb(56, 224, 112)
+        color: #ffffff
+        background-image: url('https://uploads-ssl.webflow.com/61f7efd44d01cc87c88dc6f3/6318e2916ddc28d60d89d319_Coding%20Vs.%20Programming%2002.jpg')
+        background-position: center
+        background-repeat: no-repeat
+        background-size: cover
+        h1
+            margin-bottom: 150px
+            text-transform: uppercase
+            color: #91F2E9
+        p
+            text-align: center
+            width: auto
+            border: 1px solid #DBF227
+            margin-left: 20px
+            background: #00000059
+            color:#DBF227
+            text-transform: uppercase
+    .seccion-servicios
+        grid-area: servicios
+        width: 100%
+        h2
+            text-align: center
+            width: 100%
+            color: #BDE038
+            text-transform: uppercase
+            
+        .conteiner-servicios
+            text-align: center
+            justify-items: center
+            .card
+                margin: 10px
+            @media screen and ( min-width:767px  )
+                display: flex
+                text-align: center
+                justify-content: center
+    .seccion-cursos
+        grid-area: cursos
+        text-align: center
+        justify-items: center
+        border-top: 1px solid #BDE038
+        .conteiner-cursos
+            display: grid
+            column-gap: 10px
+            grid-template-columns: repeat(1,1fr)
+            @media screen and ( min-width:767px  )
+                grid-template-columns: repeat(3,1fr)
+            @media screen and ( min-width:1023px  )
+                grid-template-columns: repeat(4,1fr)
+            
+        h2
+            text-align: center
+            width: 100%
+            color: #BDE038
+            text-transform: uppercase
+        .card
+            margin-top: 80px
+        .boton
+            margin-top: 20px
+            button
+                color: #BDE038
+                text-transform: uppercase
+                border: 1px solid #BDE038
+    .seccion-carrera
+        grid-area: carreras
+        border-top: 1px solid #BDE038
+        text-align: center
+        justify-items: center
+        .conteiner-carreras
+            display: grid
+            column-gap: 10px
+            grid-template-columns: repeat(1,1fr)
+            @media screen and ( min-width:767px  )
+                grid-template-columns: repeat(3,1fr)
+            @media screen and ( min-width:1023px  )
+                grid-template-columns: repeat(4,1fr)
+        h2
+            text-align: center
+            width: 100%
+            color: #BDE038
+            text-transform: uppercase
+        .card
+            margin-top: 80px
+        .boton
+            margin-top: 20px
+            button
+                color: #BDE038
+                text-transform: uppercase
+                border: 1px solid #BDE038
+    .seccion-profesionales
+        border-top: 1px solid #BDE038
+        grid-area: profecionales
+        text-align: center
+        justify-items: center
+        .conteiner-profesionales
+            display: grid
+            column-gap: 10px
+            grid-template-columns: repeat(1,1fr)
+            @media screen and ( min-width:767px  )
+                grid-template-columns: repeat(3,1fr)
+            @media screen and ( min-width:1023px  )
+                grid-template-columns: repeat(4,1fr)
+        h2
+            text-align: center
+            width: 100%
+            color: #BDE038
+            text-transform: uppercase
+        .card
+            margin-top: 80px
+        .boton
+            margin-top: 20px
+            button
+                color: #BDE038
+                text-transform: uppercase
+                border: 1px solid #BDE038
+                

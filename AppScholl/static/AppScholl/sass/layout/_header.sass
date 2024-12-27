@@ -1,0 +1,29 @@
+.conteiner-header
+    display: grid
+    grid-template-areas: "ofertas""inferior"
+    grid-template-rows: auto 80px
+    .conteiner-ofertas
+        grid-area: ofertas
+        text-align: center
+        justify-items: center
+        border: 1px solid black
+        background: #040A0A
+        width: 100%
+        p
+            margin: auto
+            padding: 5px
+            color: #BDE038
+        .oferta-texto
+            @media screen and ( max-width:1023px  )
+                display: none
+    .conteiner-inferior
+        grid-area: inferior
+        display: flex
+        justify-content: space-around
+        text-align: center
+        align-content: center
+        align-items: center
+        border-bottom: 1px solid #BDE038
+        background: #042940
+
+    

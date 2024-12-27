@@ -1,0 +1,73 @@
+{% extends 'AppScholl/base.html' %}
+
+
+{% block contenido %}
+    <main class="conteiner-main" id="profesionales">
+        <div class="conteiner-titulo">
+            <h1>Nuestros profesionales</h1>
+        </div>
+        <section class="seccion-buscar-filtros">
+            <article class="conteiner-buscar">
+              <form method="GET" action="{% url 'Profesionales' %}">
+                {% csrf_token %}
+                {{ buscar.as_p }}
+                <button type="submit">Buscar</button>
+                <article class="conteiner-filtros">
+                  <h2>Filtros</h2>
+                  <button type="submit" name="filtro" value="tutor">tutor</button>
+                  <button type="submit" name="filtro" value="profesor">Profesor</button>
+                  
+              </article>
+              </form>
+            </article>
+            
+        </section>
+        <section class="seccion-tarjetas">
+          {% for profesional in profesionales %}
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">{{profesional.nombre}}</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">{{profesional.apellido}}</h6>
+                <p class="card-text">{{profesional.presentacion}}</p>
+                <p class="card-text">{{profesional.profesion}}</p>
+                <p class="card-text">{{profesional.rol}}</p>
+              </div>
+            </div>
+          {% endfor %}
+            
+        </section>
+        <section class="seccion-tabla">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">nombre</th>
+                <th scope="col">apellido</th>
+                <th scope="col">documento</th>
+                <th scope="col">profesion</th>
+                <th scope="col">rol</th>
+                <th scope="col">botones</th>
+                <th scope="col"><a href="{% url 'AddProfesional' %}"><i class="fa-solid fa-plus btn-mas btn">añadir</i></a></th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              
+              {% for profesional in profesionales %}
+                <tr>
+                <td>{{profesional.nombre}}</td>
+                <td>{{profesional.apellido}}</td>
+                <td>{{profesional.documento}}</td>
+                <td>{{profesional.profesion}}</td>
+                <td>{{profesional.rol}}</td>
+                <td>
+                  <a href="{% url 'ModProfesional'  %}"><i class="fa-solid fa-pencil btn btn-mas"></i></a>
+                  <a href=""><i class="fa-solid fa-trash btn btn-mas"></i></a>
+                </td>
+              </tr>
+              {% endfor %}
+                
+            </tbody>
+          </table>
+        </section>
+    </main>
+{% endblock contenido %}

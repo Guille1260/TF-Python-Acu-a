@@ -1,0 +1,20 @@
+{% extends 'AppScholl/base.html' %}
+
+{% block contenido %}
+    <main class="conteiner-main" id="login">
+        
+        <section class="conteiner-formulario">
+            <div class="conteiner-titulo">
+                <h1>LOGIN</h1>
+            </div>
+            
+            <form action="" class="formulario">
+                {% csrf_token %}
+                {{ login.as_p }}
+            </form>
+            <article class="conteiner-preguntas">
+                
+            </article>
+        </section>
+    </main>
+{% endblock contenido %}

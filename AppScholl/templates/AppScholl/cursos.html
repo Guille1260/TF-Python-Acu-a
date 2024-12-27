@@ -1,0 +1,77 @@
+{% extends 'AppScholl/base.html' %}
+
+
+
+{% block contenido %}
+    <main class="conteiner-main" id="cursos">
+        <article class="conteiner-titulo">
+            <h1>Cursos</h1>
+        </article>
+        <section class="seccion-buscar-filtros">
+            <article class="conteiner-buscar">
+              <form method="GET" action="{% url 'Cursos' %}">
+                {% csrf_token %}
+                {{ buscar.as_p }}
+                <button type="submit">Buscar</button>
+                <article class="conteiner-filtros">
+                  <h2>Filtros</h2>
+                  <button type="submit" name="filtro" value="data">Data</button>
+                  <button type="submit" name="filtro" value="programacion">Programación</button>
+                  <button type="submit" name="filtro" value="diseno">Diseño</button>
+                  <button type="submit" name="filtro" value="marketing">Marketing</button>
+                </article>
+              </form>
+            </article>
+            
+        </section>
+        <section class="seccion-tarjetas">
+          
+          {% for curso in cursos %}
+            <div class="col-md-4"> <!-- En pantallas medianas o más grandes, se mostrarán 3 tarjetas por fila -->
+              <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">{{ curso.nombre }}</h5>
+                  <hr>
+                  <p class="card-text">{{ curso.dia }}</p>
+                  <p class="card-text">{{ curso.hora }}</p>
+                  <p class="card-text">Duración: {{ curso.duracion }} semanas</p>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+            
+        </section>
+        <section class="seccion-tabla">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">nombre</th>
+                    <th scope="col">dias</th>
+                    <th scope="col">hora</th>
+                    <th scope="col">duracion/semanas</th>
+                    <th scope="col">botones</th>
+                    <th scope="col"><a href="{% url 'AddCurso' %}"><i class="fa-solid fa-plus btn-mas btn">añadir</i></a></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for curso in cursos %}
+                    {% if curso.tipo == 'curso' %}
+                      <tr>
+                        <td>{{ curso.nombre }}</td>
+                        <td>{{ curso.dia }}</td>
+                        <td>{{ curso.hora }}</td>
+                        <td>{{ curso.duracion }}</td>
+                        <td>
+                          <a href="{% url 'ModCurso'  %}"><i class="fa-solid fa-pencil btn btn-mas"></i></a>
+                          <a href=""><i class="fa-solid fa-trash btn btn-mas"></i></a>
+                        </td>
+                      </tr>
+                    {% endif %}
+                {% endfor %}
+                    
+                </tbody>
+            </table>
+        </section>
+    </main>
+{% endblock contenido %}
+    

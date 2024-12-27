@@ -1,0 +1,34 @@
+#login
+    justify-items:  center
+    align-items: center
+    .conteiner-formulario
+        width: 400px
+        height: 450px
+        border: 1px solid #BDE038
+        text-align: center
+        display: grid
+        grid-template-areas: "titulo""campos""pregunta"
+        grid-template-rows: 15% 70% 15% 
+        .conteiner-titulo
+            grid-area: titulo
+            color: #BDE038
+            text-transform: uppercase
+            border-bottom: 1px solid #BDE038
+            align-content:    center
+        .formulario
+            grid-area: campos
+            color: #BDE038
+            margin: auto
+            text-transform: uppercase
+            .form-usuario
+                display: flex   
+            .form-contraseña
+                display: flex
+
+        .conteiner-preguntas
+            grid-area: pregunta
+            align-content:    center
+            a
+                text-decoration: none
+                color: #BDE038
+        

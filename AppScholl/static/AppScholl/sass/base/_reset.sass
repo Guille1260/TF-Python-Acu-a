@@ -1,0 +1,21 @@
+* 
+    margin: 0
+    padding: 0
+    box-sizing: border-box
+
+body
+    display: grid
+    grid-template-areas: "encabezado""main""pie"
+    row-gap: 10px
+    background: #012030
+    .conteiner-header
+        grid-area: encabezado
+        position: fixed
+        width: 100%
+        z-index: 100
+    .conteiner-main
+        grid-area: main
+        margin: 130px 10px
+        
+    .conteiner-footer
+        grid-area: pie

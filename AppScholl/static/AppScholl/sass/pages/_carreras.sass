@@ -1,0 +1,52 @@
+#carreras
+    display: grid
+    grid-template-areas: "titulo""fb""tarjetas""tabla"
+    grid-template-rows: 60px
+    border: 1px solid black
+    row-gap: 10px
+    .conteiner-titulo
+        grid-area: titulo
+        text-align: center
+        color: #BDE038
+        text-transform: uppercase
+        border-bottom: 1px solid #BDE038
+    .seccion-buscar-filtros
+        grid-area: fb
+        grid-template-areas: "buscar""filtros"
+        row-gap: 10px
+        .conteiner-buscar
+            grid-area: buscar
+            text-align: center
+            color: #BDE038
+            text-transform: uppercase
+            
+            input
+                margin: 10px
+        .conteiner-filtros
+            grid-area: filtros
+            
+            text-align: center
+            color: #BDE038
+            text-transform: uppercase
+            
+            button
+                margin: 10px
+    .seccion-tarjetas
+        grid-area: tarjetas
+        display: grid
+        grid-template-columns: repeat(1,auto)
+        row-gap: 10px
+        column-gap: 10px
+        justify-content: center
+        border: 1px solid black
+        
+        @media screen and ( min-width:765px  )
+            grid-template-columns: repeat(2,auto)
+        @media screen and ( min-width:1023px  )
+            grid-template-columns: repeat(3,auto)
+        @media screen and ( min-width:1300px  )
+            grid-template-columns: repeat(4,auto)
+    .seccion-tabla
+        grid-area: tabla
+        margin-top: 10px
+        

@@ -60,8 +60,14 @@
                 <td>{{profesional.profesion}}</td>
                 <td>{{profesional.rol}}</td>
                 <td>
-                  <a href="{% url 'ModProfesional'  %}"><i class="fa-solid fa-pencil btn btn-mas"></i></a>
-                  <a href=""><i class="fa-solid fa-trash btn btn-mas"></i></a>
+                  <a href="{% url 'ModProfesional' profesional.documento %}"><i class="fa-solid fa-pencil btn btn-mas"></i></a>
+                  <form method="POST" action="{% url 'Profesionales' %}" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este profesional?');">
+                    {% csrf_token %}
+                    <input type="hidden" name="profesional_documento" value="{{ profesional.documento }}">
+                    <button type="submit" name="eliminar" style="border: none; background: none; cursor: pointer;" aria-label="Eliminar profesional">
+                        <i class="fa-solid fa-trash btn btn-mas" style="color: red;"></i>
+                    </button>
+                </form>
                 </td>
               </tr>
               {% endfor %}

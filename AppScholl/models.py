@@ -5,7 +5,7 @@ class Alumno(models.Model):
     nombre = models.CharField(max_length=30)
     apellido = models.CharField(max_length=30)
     documento = models.IntegerField()
-    cursos_comisiones = models.TextField() 
+    cursoscomisiones = models.TextField() 
     carreras = models.TextField()  
     edad = models.IntegerField()
     

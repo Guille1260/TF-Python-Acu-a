@@ -60,8 +60,19 @@
                 <td>{{carrera.hora}}</td>
                 <td>{{carrera.duracion}} semanas</td>
                 <td>
-                  <a href="{% url 'ModCarrera'  %}"><i class="fa-solid fa-pencil btn btn-mas"></i></a>
-                  <a href=""><i class="fa-solid fa-trash btn btn-mas"></i></a>
+                  <a href="{% url 'ModCarrera' carrera.nombre %}">
+                    <i class="fa-solid fa-pencil btn btn-mas"></i>
+                </a>
+
+                <!-- Formulario de eliminación -->
+                  <form method="POST" action="{% url 'Carreras' %}" style="display:inline;"onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta carrera?');">
+                      {% csrf_token %}
+                      <input type="hidden" name="carrera_nombre" value="{{ carrera.nombre }}">
+                      <button type="submit" name="eliminar" style="border: none; background: none; cursor: pointer;" aria-label="Eliminar curso">
+                          <i class="fa-solid fa-trash btn btn-mas" style="color: red;"></i>
+                      </button>
+                  </form>
+                  
                 </td>
               </tr>
               {% endfor %}

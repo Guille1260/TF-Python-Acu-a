@@ -38,11 +38,20 @@
                 <td>{{alumno.nombre}}</td>
                 <td>{{alumno.apellido}}</td>
                 <td>{{alumno.documento}}</td>
-                <td>{{alumno.cursos_comisiones}}</td>
+                <td>{{alumno.cursoscomisiones}}</td>
                 <td>{{alumno.edad}}</td>
                 <td>
-                  <a href="{% url 'ModAlumno'  %}"><i class="fa-solid fa-pencil btn btn-mas"></i></a>
-                  <a href=""><i class="fa-solid fa-trash btn btn-mas"></i></a>
+                  <a href="{% url 'ModAlumno' alumno.documento %}">
+                    <i class="fa-solid fa-pencil btn btn-mas"></i>
+                </a>
+
+                <form method="POST" action="{% url 'Alumnos'  %}" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este alumno?');">
+                  {% csrf_token %}
+                  <input type="hidden" name="alumno_documento" value="{{ alumno.documento }}">
+                  <button type="submit" name="eliminar" style="border: none; background: none; cursor: pointer;" aria-label="Eliminar alumno">
+                      <i class="fa-solid fa-trash btn btn-mas" style="color: red;"></i>
+                  </button>
+                </form>
                 </td>
                 
               </tr>

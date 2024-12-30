@@ -14,8 +14,9 @@ urlpatterns = [
     path("nuevacarrera/",views.AddCarrera,name='AddCarrera'),
     path("nuevoalumno/",views.AddAlumno,name='AddAlumno'),
     path("nuevoprofesional/",views.AddAProfesional,name='AddProfesional'),
-    path("modificarcurso/",views.ModCurso,name='ModCurso'),
-    path("modificarcarrera/",views.ModCarrera,name='ModCarrera'),
-    path("modificaralumno/",views.ModAlumno,name='ModAlumno'),
-     path("modificarprofesional/",views.ModProfesional,name='ModProfesional'),
+    path("modificarcurso/<str:curso_nombre>",views.ModCurso,name='ModCurso'),
+    path("modificarcarrera/<str:carrera_nombre>",views.ModCarrera,name='ModCarrera'),
+    path("modificaralumno/<int:alumno_documento>",views.ModAlumno,name='ModAlumno'),
+    path("modificarprofesional/<int:profesional_documento>",views.ModProfesional,name='ModProfesional'),
+     
 ]

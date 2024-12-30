@@ -16,11 +16,13 @@ ROLES_CHOICES = [
         
        
     ]
-TIPOS_CHOICES =[
-    ('carrera', 'carrera'),
-    ('curso', 'curso'),
-]    
-    
+   
+CATEGORIAS_CHOICES = [
+    ('data', 'Data'),
+    ('programacion', 'Programacion'),
+    ('diseño', 'Diseño'),
+    ('marketing', 'Marketing')
+]
 HORAS_CHOICES = [
         
         
@@ -34,9 +36,9 @@ class NuevoCurso(forms.Form):
     dia = forms.ChoiceField(choices=DIAS_CHOICES, label="Día")
     hora = forms.ChoiceField(choices=HORAS_CHOICES, label="Hora")
     duracion = forms.IntegerField(min_value=1, label="Duración (en semanas)")
-    tipo = forms.ChoiceField(choices=TIPOS_CHOICES, label="tipo")
+    tipo = forms.ChoiceField( label="tipo", choices=[('curso','curso')]  )
+    categoria = forms.ChoiceField(choices=CATEGORIAS_CHOICES, label="Categoria")
     
-
 
 class InicioSesion(forms.Form):
     usuario = forms.CharField(
@@ -55,9 +57,8 @@ class NuevaCarrera(forms.Form):
     dia = forms.ChoiceField(choices=DIAS_CHOICES, label="Día")
     hora = forms.ChoiceField(choices=HORAS_CHOICES, label="Hora")
     duracion = forms.IntegerField(min_value=1, label="Duración (en semanas)")
-    nivel = forms.ChoiceField(choices=NIVELES_CHOICES, label="nivel")
-    tipo = forms.ChoiceField( label="tipo", initial='carrera',  widget=forms.Select(attrs={'disabled': 'disabled'}))
-
+    tipo = forms.ChoiceField( label="tipo", choices=[('carrera','carrera')]  )
+    categoria = forms.ChoiceField(choices=CATEGORIAS_CHOICES, label="Categoria")
 
     
     
@@ -65,7 +66,7 @@ class NuevoAlumno(forms.Form):
     nombre = forms.CharField(max_length=100, label="Nombre ")    
     apellido = forms.CharField(max_length=100, label="apellido")
     dni = forms.IntegerField(label="Documento")
-    cursosycomisiones = forms.CharField(max_length=100, label="cursos/comisiones ",initial='curso:comision') 
+    cursoscom = forms.CharField(max_length=100, label="cursos/comisiones ") 
     carrera = forms.CharField(max_length=100, label="carrera ") 
     edad = forms.IntegerField(label="edad")
     
@@ -80,3 +81,4 @@ class NuevoProfesional(forms.Form):
     
 class Buscar(forms.Form):
     buscador = forms.CharField(max_length=100,required=False)
+    

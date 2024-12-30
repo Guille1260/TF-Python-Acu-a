@@ -62,8 +62,18 @@
                         <td>{{ curso.hora }}</td>
                         <td>{{ curso.duracion }}</td>
                         <td>
-                          <a href="{% url 'ModCurso'  %}"><i class="fa-solid fa-pencil btn btn-mas"></i></a>
-                          <a href=""><i class="fa-solid fa-trash btn btn-mas"></i></a>
+                          <a href="{% url 'ModCurso' curso.nombre %}">
+                            <i class="fa-solid fa-pencil btn btn-mas"></i>
+                        </a>
+        
+                        <!-- Formulario de eliminación -->
+                          <form method="POST" action="{% url 'Cursos' %}" style="display:inline;"onsubmit="return confirm('¿Estás seguro de que deseas eliminar este curso?');">
+                              {% csrf_token %}
+                              <input type="hidden" name="curso_nombre" value="{{ curso.nombre }}">
+                              <button type="submit" name="eliminar" style="border: none; background: none; cursor: pointer;" aria-label="Eliminar curso">
+                                  <i class="fa-solid fa-trash btn btn-mas" style="color: red;"></i>
+                              </button>
+                          </form>
                         </td>
                       </tr>
                     {% endif %}

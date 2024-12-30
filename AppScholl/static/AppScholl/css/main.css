@@ -9,7 +9,7 @@ body {
   display: grid;
   grid-template-areas: "encabezado" "main" "pie";
   row-gap: 10px;
-  background: #012030;
+  background: red;
 }
 body .conteiner-header {
   grid-area: encabezado;

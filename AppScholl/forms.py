@@ -1,4 +1,6 @@
 from django import forms
+
+from AppScholl.models import Asignatura
 DIAS_CHOICES = [
         ('lunes-miercoles', 'Lunes-Miercoles'),
         ('martes-jueves', 'Martes-Jueves'),
@@ -31,13 +33,14 @@ HORAS_CHOICES = [
         ('21:00-22:30', '21:00-22:30 PM'),
     ]
 
-class NuevoCurso(forms.Form):
-    nombre = forms.CharField(max_length=100, label="Nombre del curso")
-    dia = forms.ChoiceField(choices=DIAS_CHOICES, label="Día")
-    hora = forms.ChoiceField(choices=HORAS_CHOICES, label="Hora")
-    duracion = forms.IntegerField(min_value=1, label="Duración (en semanas)")
-    tipo = forms.ChoiceField( label="tipo", choices=[('curso','curso')]  )
-    categoria = forms.ChoiceField(choices=CATEGORIAS_CHOICES, label="Categoria")
+class NuevoCurso(forms.ModelForm):
+    class Meta:
+        model = Asignatura
+        fields = ['nombre', 'dia', 'hora', 'duracion', 'tipo', 'categoria']
+    dia = forms.ChoiceField(choices=DIAS_CHOICES,label='dias')
+    hora = forms.ChoiceField(choices=HORAS_CHOICES,label='hora')
+    categoria = forms.ChoiceField(choices=CATEGORIAS_CHOICES,label='categoria')
+    tipo = forms.ChoiceField(choices=[('curso', 'Curso')], initial='curso', label="Tipo")
     
 
 class InicioSesion(forms.Form):

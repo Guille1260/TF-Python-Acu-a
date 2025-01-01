@@ -3,21 +3,21 @@ from django.urls import path
 from AppScholl import views
 
 urlpatterns = [
-    path("", views.InicioView.as_view(), name='Home'),
-    path("cursos/", views.CursoListView.as_view(), name='Cursos'),
-    path("carreras/", views.CarreraListView.as_view(), name='Carreras'),
-    path("alumnos/", views.AlumnoListView.as_view(), name='Alumnos'),
-    path("profesionales/", views.ProfesionalListView.as_view(), name='Profesionales'),
+    path("",views.inicio,name='Home'),
+    path("cursos/",views.curso,name='Cursos'),
+    path("carreras/",views.carreras,name='Carreras'),
+    path("alumnos/",views.alumnos,name='Alumnos'),
+    path("profesionales/",views.profesionales,name='Profesionales'),
     path("login/",views.login,name='Login'),
-   
-    path("nuevocurso/", views.AddCursoView.as_view(), name='AddCurso'),
-    path("nuevacarrera/", views.AddCarreraView.as_view(), name='AddCarrera'),
-    path("nuevoalumno/", views.AddAlumnoView.as_view(), name='AddAlumno'),
-    path("nuevoprofesional/", views.AddProfesionalView.as_view(), name='AddProfesional'),
+
+    path("nuevocurso/",views.AddCurso,name='AddCurso'),
+    path("nuevacarrera/",views.AddCarrera,name='AddCarrera'),
+    path("nuevoalumno/",views.AddAlumno,name='AddAlumno'),
+    path("nuevoprofesional/",views.AddAProfesional,name='AddProfesional'),
     
-    path("modificarcurso/<str:curso_nombre>/", views.ModCursoView.as_view(), name='ModCurso'),
-    path("modificarcarrera/<str:carrera_nombre>/", views.ModCarreraView.as_view(), name='ModCarrera'),
-    path("modificaralumno/<int:alumno_documento>/", views.ModAlumnoView.as_view(), name='ModAlumno'),
-    path("modificarprofesional/<int:profesional_documento>/", views.ModProfesionalView.as_view(), name='ModProfesional'),
+    path("modificarcurso/<str:curso_nombre>",views.ModCurso,name='ModCurso'),
+    path("modificarcarrera/<str:carrera_nombre>",views.ModCarrera,name='ModCarrera'),
+    path("modificaralumno/<int:alumno_documento>",views.ModAlumno,name='ModAlumno'),
+    path("modificarprofesional/<int:profesional_documento>",views.ModProfesional,name='ModProfesional'),
      
 ]

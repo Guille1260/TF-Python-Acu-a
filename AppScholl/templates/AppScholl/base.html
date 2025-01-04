@@ -22,14 +22,52 @@
                     <i class="fa-solid fa-laptop-code" style="font-size: 30px; color: aqua;">  CDC</i>
                 </a>
             </article>
-            <nav class="conteiner-menu-desk">
+            <nav class="conteiner-menu-desk" style="margin-top: 15px;">
                 <ul class="menu-desk">
-                    <li><a href="{% url 'Cursos' %}" class="nav-link">curso</a></li>
+                    <li><a href="{% url 'Cursos' %}" class="nav-link">cursos</a></li>
                     <li><a href="{% url 'Carreras' %}" class="nav-link">carreras</a></li>
-                    <li><a href="{% url 'Alumnos' %}" class="nav-link">alumnos</a></li>
                     <li><a href="{% url 'Profesionales' %}" class="nav-link">profesionales</a></li>
-                    <li><a href="{% url 'Login' %}" class="nav-link sesion">iniciar sesion</a></li>
-                    <li><img src="" alt="icono" class="icono-usuario nav-link"></li>
+                    
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'Alumnos' %}" class="nav-link">alumnos</a></li>
+                        {% if user.is_superuser %}
+                            <li><a href="{% url 'Registro' %}" class="nav-link ">Nuevo usuario</a></li>
+                        {% endif %}
+                        
+                        
+                        
+                        <div class="dropdown">
+                            {% if user.perfil.foto %}
+                                <button class="nav-link  " type="button" data-bs-toggle="dropdown" aria-expanded="false" style="width: 50px ;height: auto ;margin-top: 0px">
+                                    <img src="{{user.perfil.foto.url}}" alt="icono" class="icono-usuario nav-link" style="width: 50px ;height: auto ; margin-top: -1px; border-radius: 40px;">
+                                </button>
+                            {% else %}
+                                <button class="nav-link  " type="button" data-bs-toggle="dropdown" aria-expanded="false" style="width: 50px ;height: auto ;margin-top: 0px">
+                                    <img src="https://sollentunatrafikskola.se/wp-content/uploads/2018/12/male-feature.jpg" alt="icono" class="icono-usuario nav-link" style="width: 50px; height: auto; margin-top: -1px; border-radius: 40px;">
+                                </button>
+                                        
+                            {% endif %}
+                            
+                            <ul class="dropdown-menu" style="background: #042940 ;">
+                              <li><a class="dropdown-item" href="{% url 'Logout' %}" style="color: #BDE038;">cerrar sesion</a></li>
+                              <li><a class="dropdown-item" href="{% url 'Perfil' %}" style="color: #BDE038;">Ver o Editar perfil</a></li>
+                              <li><a class="dropdown-item" href="{% url 'Cambio' %}" style="color: #BDE038;">Cambiar contraseña</a></li>
+                            </ul>
+                        </div>
+
+                        
+                    
+                    
+                    
+                    {% else %}
+                        <li><a href="{% url 'Login' %}" class="nav-link sesion">iniciar sesion</a></li>
+                    
+                    {% endif %}
+                        
+                    
+                    
+
+                    
                 </ul>
             </nav>
             <button class="btn btn-menu" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class="fa-solid fa-bars-staggered"></i></button>

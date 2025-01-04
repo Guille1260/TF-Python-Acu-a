@@ -10,7 +10,7 @@
               <form method="GET" action="{% url 'Carreras' %}">
                 {% csrf_token %}
                 {{ buscar.as_p }}
-                <button type="submit">Buscar</button>
+                <button type="submit">Buscar por nombre</button>
                 <article class="conteiner-filtros">
                   <h2>Filtros</h2>
                   <button type="submit" name="filtro" value="data">Data</button>
@@ -20,66 +20,89 @@
               </article>
               </form>
             </article>
-            
+            <article class="conteiner-filtro-seleccionado">
+              {% if filtro %}
+                  <article class="conteiner-filtro-seleccionado" style="color: #DBF227; font-size: 25px;">
+                      Filtrado por: <span style="text-transform: uppercase;">{{ filtro }}</span> 
+                  </article>
+              {% endif %}
+            </article>
         </section>
-        <section class="seccion-tarjetas">
-          {% for carrera in carreras %}
-          <div class="card" style="width: 18rem;">
-              <div class="card-body">
-              <h5 class="card-title">{{carrera.nombre}}</h5>
-              <hr>
-              <p class="card-text">{{carrera.dia}} </p>
-              <p class="card-text">{{carrera.hora}} </p>
-              <p class="card-text">duracion : {{carrera.duracion}} semnas </p>
-              </div>
-          
-          </div>
-          {% endfor %}
-            
-            
-        </section>
-        <section class="seccion-tabla">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">nombre</th>
-                <th scope="col">dias</th>
-                <th scope="col">hora</th>
-                <th scope="col">duracion/semanas</th>
-                <th scope="col">botones</th>
-                <th scope="col"><a href="{% url 'AddCarrera' %}"><i class="fa-solid fa-plus btn-mas btn">añadir</i></a></th>
-                
-              </tr>
-            </thead>
-            <tbody>
-              
-              {% for carrera in carreras %}
-              <tr>
-                <td>{{carrera.nombre}}</td>
-                <td>{{carrera.dia}}</td>
-                <td>{{carrera.hora}}</td>
-                <td>{{carrera.duracion}} semanas</td>
-                <td>
-                  <a href="{% url 'ModCarrera' carrera.nombre %}">
-                    <i class="fa-solid fa-pencil btn btn-mas"></i>
-                </a>
-
-                <!-- Formulario de eliminación -->
-                  <form method="POST" action="{% url 'Carreras' %}" style="display:inline;"onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta carrera?');">
-                      {% csrf_token %}
-                      <input type="hidden" name="carrera_nombre" value="{{ carrera.nombre }}">
-                      <button type="submit" name="eliminar" style="border: none; background: none; cursor: pointer;" aria-label="Eliminar curso">
-                          <i class="fa-solid fa-trash btn btn-mas" style="color: red;"></i>
-                      </button>
-                  </form>
+        {% if user.is_authenticated %}
+          {% if carreras %}
+            <section class="seccion-tabla">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">nombre</th>
+                    <th scope="col">dias</th>
+                    <th scope="col">hora</th>
+                    <th scope="col">duracion/semanas</th>
+                    <th scope="col">botones</th>
+                    <th scope="col"><a href="{% url 'AddCarrera' %}"><i class="fa-solid fa-plus btn-mas btn">añadir</i></a></th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
                   
-                </td>
-              </tr>
-              {% endfor %}
+                  {% for carrera in carreras %}
+                  <tr>
+                    <td>{{carrera.nombre}}</td>
+                    <td>{{carrera.dia}}</td>
+                    <td>{{carrera.hora}}</td>
+                    <td>{{carrera.duracion}} semanas</td>
+                    <td>
+                      {% if user.is_superuser %}
+                        <a href="{% url 'ModCarrera' carrera.nombre %}">
+                          <i class="fa-solid fa-pencil btn btn-mas"></i>
+                        </a>
+
+                    <!-- Formulario de eliminación -->
+                        <form method="POST" action="{% url 'Carreras' %}" style="display:inline;"onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta carrera?');">
+                            {% csrf_token %}
+                            <input type="hidden" name="carrera_nombre" value="{{ carrera.nombre }}">
+                            <button type="submit" name="eliminar" style="border: none; background: none; cursor: pointer;" aria-label="Eliminar curso">
+                                <i class="fa-solid fa-trash btn btn-mas" style="color: red;"></i>
+                            </button>
+                        </form>
+                      {% else %}
+                        <p>No tienes permisos</p>
+                      {% endif %}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                    
+                </tbody>
+              </table>
+            </section>
+          {% else %}
+            <p style="color: #DBF227; font-size: 25px; text-align: center;">No se encontraron carreras para el filtro seleccionado.</p>        
+          {% endif %} 
+        {% else %}
+          <section class="seccion-tarjetas">
+          {% if carreras %}
+              
+            {% for carrera in carreras %}
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                    <h5 class="card-title">{{carrera.nombre}}</h5>
+                    <hr>
+                    <p class="card-text">{{carrera.dia}} </p>
+                    <p class="card-text">{{carrera.hora}} </p>
+                    <p class="card-text">duracion : {{carrera.duracion}} semnas </p>
+                    </div>
                 
-            </tbody>
-          </table>
-        </section>
+                </div>
+            {% endfor %}
+            {% else %}
+            <p style="color: #DBF227; font-size: 25px; text-align: center">No se encontraron carreras para el filtro seleccionado.</p>        
+                  
+              
+
+          {% endif %}
+        </section>  
+          
+        {% endif %}
     </main>
 {% endblock contenido %}
     

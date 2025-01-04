@@ -1,0 +1,45 @@
+{% extends 'AppScholl/base.html' %}
+
+{% block contenido %}
+<main class="conteiner-main" id="login">
+        
+    <section class="conteiner-formulario">
+        <div class="conteiner-titulo">
+            <h1 style="font-size: 29px;"> nueva contraseña</h1>
+        </div>
+        
+        <form action="" method="post" class="formulario" >
+            {% csrf_token %}
+            <div style="margin-top: 10px;">
+                <label for="{{ form.old_password.id_for_label }}">actual:</label>
+                {{ form.old_password }}  <!-- Muestra el input para la contraseña actual -->
+            </div>
+            
+            <div style="margin-top: 10px;">
+                <label for="{{ form.new_password1.id_for_label }}">Nueva :</label>
+                {{ form.new_password1 }}  <!-- Muestra el input para la nueva contraseña -->
+            </div>
+            
+            <div style="margin-top: 10px;">
+                <label for="{{ form.new_password2.id_for_label }}">Confirmar :</label>
+                {{ form.new_password2 }}  <!-- Muestra el input para confirmar la nueva contraseña -->
+            </div>
+            
+            <button type="submit" style="margin-top: 10px;">Cambiar contraseña</button>
+            
+        </form>
+
+        <article class="conteiner-preguntas">
+            <div style="color: #DBF227;">
+                {% if form.old_password.errors %}
+                    <p class="error" >{{ form.old_password.errors }}</p>
+                {% endif %}
+                
+            </div>
+               
+            
+            <!-- Opcional: Aquí podrías agregar alguna pregunta como "Olvidaste tu contraseña?" -->
+        </article>
+    </section>
+</main>
+{% endblock contenido %}

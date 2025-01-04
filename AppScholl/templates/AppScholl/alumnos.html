@@ -10,55 +10,67 @@
             <article class="conteiner-buscar">
               <form method="GET" action="{% url 'Alumnos' %}">
                 {% csrf_token %}
+                
                 {{ buscar.as_p }}
-                <button type="submit">Buscar</button>
+                <button type="submit">Buscar por dni / Apellido</button>
                 
               </form>
             </article>
             
         </section>
         <section class="seccion-tabla">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">nombre</th>
-                <th scope="col">apellido</th>
-                <th scope="col">dni</th>
-                <th scope="col">curso</th>
-                <th scope="col">edad</th>
-                <th scope="col">botones</th>
-                <th scope="col"><a href="{% url 'AddAlumno' %}"><i class="fa-solid fa-plus btn-mas btn">añadir</i></a></th>
-             
-              </tr>
-            </thead>
-            <tbody>
+          
+          {% if alumnos %}
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">nombre</th>
+                  <th scope="col">apellido</th>
+                  <th scope="col">dni</th>
+                  <th scope="col">curso</th>
+                  <th scope="col">edad</th>
+                  <th scope="col">botones</th>
+                  <th scope="col"><a href="{% url 'AddAlumno' %}"><i class="fa-solid fa-plus btn-mas btn">añadir</i></a></th>
               
-              {% for alumno in alumnos %}
-              <tr>
-                <td>{{alumno.nombre}}</td>
-                <td>{{alumno.apellido}}</td>
-                <td>{{alumno.documento}}</td>
-                <td>{{alumno.cursoscomisiones}}</td>
-                <td>{{alumno.edad}}</td>
-                <td>
-                  <a href="{% url 'ModAlumno' alumno.documento %}">
-                    <i class="fa-solid fa-pencil btn btn-mas"></i>
-                </a>
+                </tr>
+              </thead>
+              <tbody>
+                
+                {% for alumno in alumnos %}
+                <tr>
+                  <td>{{alumno.nombre}}</td>
+                  <td>{{alumno.apellido}}</td>
+                  <td>{{alumno.documento}}</td>
+                  <td>{{alumno.cursoscomisiones}}</td>
+                  <td>{{alumno.edad}}</td>
+                  <td>
+                    {% if user.is_superuser %}
+                      <a href="{% url 'ModAlumno' alumno.documento %}">
+                        <i class="fa-solid fa-pencil btn btn-mas"></i>
+                      </a>
 
-                <form method="POST" action="{% url 'Alumnos'  %}" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este alumno?');">
-                  {% csrf_token %}
-                  <input type="hidden" name="alumno_documento" value="{{ alumno.documento }}">
-                  <button type="submit" name="eliminar" style="border: none; background: none; cursor: pointer;" aria-label="Eliminar alumno">
-                      <i class="fa-solid fa-trash btn btn-mas" style="color: red;"></i>
-                  </button>
-                </form>
-                </td>
-                
-              </tr>
-              {% endfor %}
-                
-            </tbody>
-          </table>
+                      <form method="POST" action="{% url 'Alumnos'  %}" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este alumno?');">
+                        {% csrf_token %}
+                        <input type="hidden" name="alumno_documento" value="{{ alumno.documento }}">
+                        <button type="submit" name="eliminar" style="border: none; background: none; cursor: pointer;" aria-label="Eliminar alumno">
+                            <i class="fa-solid fa-trash btn btn-mas" style="color: red;"></i>
+                        </button>
+                      </form>
+                    {% else %}
+                        <p>No tienes permisos</p>
+                    {% endif %}
+                  </td>
+                  
+                </tr>
+                {% endfor %}
+                  
+              </tbody>
+            </table>
+          {% else %}
+            <p style="color: #DBF227; font-size: 25px; text-align: center;">No se encontraron alumnos .</p>        
+          {% endif %}
+            
+          
         </section>
     </main>
 {% endblock contenido %}

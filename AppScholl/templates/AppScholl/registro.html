@@ -1,0 +1,38 @@
+{% extends 'AppScholl/base.html' %}
+
+{% block contenido %}
+<main class="conteiner-main" id="login">
+        
+    <section class="conteiner-formulario">
+        <div class="conteiner-titulo">
+            <h1>Registrar Usuario</h1>
+        </div>
+        
+        <form action="" method="post" class="formulario">
+            {% csrf_token %}
+            <div style="margin-top: 20px;">
+                <label for="{{ form.username.id_for_label }}">Nombre de usuario:</label>
+                <input type="text" name="username" id="{{ form.username.id_for_label }}" class="mi-clase" />
+            </div>
+            
+            <div style="margin-top: 20px;">
+                <label for="{{ form.password1.id_for_label }}">Contraseña:</label>
+                <input type="password" name="password1" id="{{ form.password1.id_for_label }}" class="mi-clase" />
+            </div>
+            
+            <div style="margin-top: 20px;">
+                <label for="{{ form.password2.id_for_label }}">Confirmar contraseña:</label>
+                <input type="password" name="password2" id="{{ form.password2.id_for_label }}" class="mi-clase" />
+            </div>
+            
+            
+            <button type="submit" style="margin-top: 20px;">crear usuario</button>
+        </form>
+
+        <article class="conteiner-preguntas">
+            
+        
+        </article>
+    </section>
+</main>
+{% endblock contenido %}

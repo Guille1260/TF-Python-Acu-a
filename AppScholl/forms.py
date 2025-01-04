@@ -1,6 +1,6 @@
 from django import forms
-
-from AppScholl.models import Asignatura
+from django.contrib.auth.models import User
+from AppScholl.models import Asignatura,Perfil
 DIAS_CHOICES = [
         ('lunes-miercoles', 'Lunes-Miercoles'),
         ('martes-jueves', 'Martes-Jueves'),
@@ -84,4 +84,14 @@ class NuevoProfesional(forms.Form):
     
 class Buscar(forms.Form):
     buscador = forms.CharField(max_length=100,required=False)
+    
+class ActualizarUsuarioForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username','first_name', 'last_name','email'] 
+    
+class FotoPerfilForm(forms.ModelForm):
+    class Meta:
+        model = Perfil
+        fields = ['foto']
     

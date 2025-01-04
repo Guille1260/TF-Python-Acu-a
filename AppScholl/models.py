@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Modelo Alumno
 class Alumno(models.Model):
     nombre = models.CharField(max_length=30)
@@ -35,8 +35,7 @@ class Asignatura(models.Model):
         return self.nombre
 
 
-class Usuario(models.Model):
-    usuario = models.CharField(max_length=20)
-    contraseña = models.CharField(max_length=255)  
-    def __str__(self):
-        return self.usuario
+class Perfil(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    foto = models.ImageField(upload_to='foto_perfil/',null=True,blank=True,default='https://sollentunatrafikskola.se/wp-content/uploads/2018/12/male-feature.jpg')
+    

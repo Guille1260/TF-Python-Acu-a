@@ -1,8 +1,11 @@
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404, redirect, render
-from AppScholl.models import Profesional,Alumno,Asignatura
-from AppScholl.forms import NuevoCurso,InicioSesion,NuevaCarrera,NuevoAlumno,NuevoProfesional,Buscar
-
+from pyexpat.errors import messages
+from django.shortcuts import get_object_or_404, render
+from django.contrib.auth import authenticate,login as nuevo,logout
+from django.shortcuts import  redirect, render
+from AppScholl.models import Profesional,Alumno,Asignatura,Perfil as profile
+from AppScholl.forms import NuevoCurso,InicioSesion,NuevaCarrera,NuevoAlumno,NuevoProfesional,Buscar,ActualizarUsuarioForm,FotoPerfilForm
+from django.contrib.auth.forms import UserCreationForm,PasswordChangeForm
+from django.contrib.auth.decorators import login_required
 
 def inicio(request):
     cursos = Asignatura.objects.filter(tipo='curso') 
@@ -60,26 +63,19 @@ def carreras(request):
     return render(request,'AppScholl/carreras.html',{'carreras':carrera,'buscar':buscador,'query': query,'filtro': filtro})
 
 
-
+@login_required(login_url='Login')
 def alumnos(request):
-    query = request.GET.get('buscador', '')  # Asegúrate de que query tenga un valor predeterminado
-    buscador = Buscar(request.GET)  # Suponiendo que tienes un formulario 'Buscar' para el filtro
-    
-    # Inicializamos la variable 'alumnos' por defecto con todos los alumnos
+    query = request.GET.get('buscador', '')  
+    buscador = Buscar(request.GET)  
     alumnos = Alumno.objects.all()
-    
-    # Si se hace un reset, borrar el valor de la búsqueda
     if 'reset' in request.GET:  
         query = ''
-        alumnos = Alumno.objects.all()  # Mostrar todos los alumnos si no hay búsqueda
+        alumnos = Alumno.objects.all()  
     elif query:
-        # Si la búsqueda es un número, buscar por 'documento', sino buscar por 'apellido'
         if query.isdigit():
             alumnos = Alumno.objects.filter(documento__icontains=query)
         else:
             alumnos = Alumno.objects.filter(apellido__icontains=query)
-    
-    # Manejo de eliminación de un alumno
     if 'eliminar' in request.POST:  
         alumno_documento = request.POST.get('alumno_documento')  
         if alumno_documento:
@@ -87,18 +83,9 @@ def alumnos(request):
             if alumno:
                 alumno.delete()
             else:
-                # Puedes agregar un mensaje aquí si el alumno no fue encontrado
-                # Ejemplo con el sistema de mensajes de Django
                 from django.contrib import messages
-                messages.error(request, "Alumno no encontrado.")
                 return redirect('Alumnos')
-    
-    # Pasar los datos a la plantilla
-    return render(request, 'AppScholl/alumnos.html', {
-        'alumnos': alumnos,  
-        'buscar': buscador,   
-        'query': query  
-    })
+    return render(request, 'AppScholl/alumnos.html', {'alumnos': alumnos,  'buscar': buscador,   'query': query  })
     
     
     
@@ -115,7 +102,7 @@ def profesionales(request):
     elif filtro:  
         profesionales = Profesional.objects.filter(rol__icontains=filtro)  
     elif query:  
-        profesionales = Profesional.objects.filter(nombre__icontains=query)  
+        profesionales = Profesional.objects.filter(documento__icontains=query)  
     if 'eliminar' in request.POST: 
         profesional_documento = request.POST.get('profesional_documento')  
         if profesional_documento:
@@ -126,16 +113,75 @@ def profesionales(request):
                 return redirect('Profesionales')  
     return render(request, 'AppScholl/profesionales.html', {'profesionales': profesionales,  'buscar': buscador,  'query': query,  'filtro': filtro, })
 
+@login_required(login_url='Login')
+def Perfil(request):
+    usuario = request.user
+    icono, _ = profile.objects.get_or_create(user=usuario)
+    if request.method == "POST":
+        form =ActualizarUsuarioForm(request.POST,instance=usuario)
+        perfil_form = FotoPerfilForm(request.POST,request.FILES,instance=icono)
+        if form.is_valid() and perfil_form.is_valid():
+            form.save()
+            perfil_form.save()
+            return redirect('Home')
+        else:
+            return redirect('Perfil')
+    else:
+        form =ActualizarUsuarioForm(instance=usuario)
+        perfil_form = FotoPerfilForm(instance=icono)
+    return render(request,'AppScholl/perfil.html',{'form':form,'perfil':perfil_form})
 
+
+@login_required(login_url='Login')
+def CambiarContraseña(request):
+    usuario = request.user  # Obtiene el usuario actual
+    if request.method == 'POST':
+        form = PasswordChangeForm(user=usuario, data=request.POST)
+        if form.is_valid():  
+            form.save()  
+            return redirect('Home')  
+        else:
+            return redirect('Cursos')
+    else:
+       
+        form = PasswordChangeForm(user=usuario)
+
+    return render(request, 'AppScholl/cambio.html', {'form': form})
 
 def login(request):
-    log = InicioSesion
-    return render(request,'AppScholl/login.html',{'login':log})
+    if request.method == 'POST':
+        form = InicioSesion(request.POST) 
+        if form.is_valid():
+            username = form.cleaned_data['usuario']
+            password = form.cleaned_data['contraseña']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                nuevo(request,user)
+                return redirect('Home')  
+            else:
+                return render(request, 'AppScholl/login.html', {'form': form,'mensaje': 'usuario o contraseña no existen'})
+    else:
+        form = InicioSesion()  
+    
+    return render(request, 'AppScholl/login.html', {'form': form})
+    
+def user_logaut(request):
+    logout(request)
+    return redirect('Home')  
 
-
-
+@login_required(login_url='Login')
+def Nuevo_usuario(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('Home')
+    else:
+        form = UserCreationForm()
+    return render(request, 'AppScholl/registro.html',{'form':form})
 
 # vistas agregar
+@login_required(login_url='Login')
 def AddCurso(request):
     if request.method == 'POST':
         formularioadd = NuevoCurso(request.POST)  
@@ -162,6 +208,7 @@ def AddCurso(request):
         formularioadd = NuevoCurso()
         return render(request, 'AppScholl/components/addcurso.html', {'form': formularioadd})
 
+@login_required(login_url='Login')
 def AddCarrera(request):
     if request.method == 'POST':
         formularioadd = NuevaCarrera(request.POST)  
@@ -188,6 +235,7 @@ def AddCarrera(request):
         formularioadd = NuevaCarrera()
         return render(request, 'AppScholl/components/addcarrera.html', {'form': formularioadd})
 
+@login_required(login_url='Login')
 def AddAlumno(request):
     if request.method == 'POST':
         formularioadd = NuevoAlumno(request.POST)  
@@ -214,6 +262,7 @@ def AddAlumno(request):
         formularioadd = NuevoAlumno()
         return render(request, 'AppScholl/components/addalumno.html', {'form': formularioadd})
 
+@login_required(login_url='Login')
 def AddAProfesional(request):
     if request.method == 'POST':
         formularioadd = NuevoProfesional(request.POST)  
@@ -240,6 +289,7 @@ def AddAProfesional(request):
         formularioadd = NuevoProfesional()
         return render(request, 'AppScholl/components/addprofesional.html', {'form': formularioadd})
 
+@login_required(login_url='Login')
 def ModCurso(request, curso_nombre):
     curso = get_object_or_404(Asignatura, nombre=curso_nombre)
     if request.method == 'GET':
@@ -264,7 +314,7 @@ def ModCurso(request, curso_nombre):
             return redirect('AddCurso')  
     return render(request, 'AppScholl/components/modcurso.html', {'form': formulariomod, 'curso': curso})
 
-
+@login_required(login_url='Login')
 def ModCarrera(request, carrera_nombre):
     carrera = get_object_or_404(Asignatura, nombre=carrera_nombre)
     if request.method == 'POST':
@@ -290,6 +340,8 @@ def ModCarrera(request, carrera_nombre):
         })
     
     return render(request, 'AppScholl/components/modcarrera.html', {'form': form, 'carrera': carrera})
+
+@login_required(login_url='Login')
 def ModAlumno(request, alumno_documento):
     alumno = get_object_or_404(Alumno, documento=alumno_documento)
     if request.method == 'POST':
@@ -314,7 +366,8 @@ def ModAlumno(request, alumno_documento):
         })
     
     return render(request, 'AppScholl/components/modalumno.html', {'form': form, 'alumno': alumno})
-4
+
+@login_required(login_url='Login')
 def ModProfesional(request, profesional_documento):
     profesional = get_object_or_404(Profesional, documento=profesional_documento)
     if request.method == 'POST':

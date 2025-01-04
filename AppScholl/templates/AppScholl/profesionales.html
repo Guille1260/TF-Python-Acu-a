@@ -10,8 +10,13 @@
             <article class="conteiner-buscar">
               <form method="GET" action="{% url 'Profesionales' %}">
                 {% csrf_token %}
-                {{ buscar.as_p }}
-                <button type="submit">Buscar</button>
+                {% if user.is_authenticated %}
+                  {{ buscar.as_p }}
+                  <button type="submit">Buscar por dni</button>
+                  {% else %}
+                  <button type="submit">limpiar</button>
+                {% endif %}
+                
                 <article class="conteiner-filtros">
                   <h2>Filtros</h2>
                   <button type="submit" name="filtro" value="tutor">tutor</button>
@@ -20,60 +25,88 @@
               </article>
               </form>
             </article>
-            
+            <article class="conteiner-filtro-seleccionado">
+              {% if filtro %}
+                  <article class="conteiner-filtro-seleccionado" style="color: #DBF227; font-size: 25px;">
+                      Filtrado por: <span style="text-transform: uppercase;">{{ filtro }}</span> 
+                  </article>
+              {% endif %}
+            </article>
         </section>
-        <section class="seccion-tarjetas">
-          {% for profesional in profesionales %}
-            <div class="card" style="width: 18rem;">
-              <div class="card-body">
-                <h5 class="card-title">{{profesional.nombre}}</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">{{profesional.apellido}}</h6>
-                <p class="card-text">{{profesional.presentacion}}</p>
-                <p class="card-text">{{profesional.profesion}}</p>
-                <p class="card-text">{{profesional.rol}}</p>
-              </div>
-            </div>
-          {% endfor %}
+
+        {% if user.is_authenticated %}
+          {% if profesionales %}
+            <section class="seccion-tabla">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">nombre</th>
+                    <th scope="col">apellido</th>
+                    <th scope="col">documento</th>
+                    <th scope="col">profesion</th>
+                    <th scope="col">rol</th>
+                    <th scope="col">botones</th>
+                    <th scope="col"><a href="{% url 'AddProfesional' %}"><i class="fa-solid fa-plus btn-mas btn">añadir</i></a></th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                  {% for profesional in profesionales %}
+                    <tr>
+                    <td>{{profesional.nombre}}</td>
+                    <td>{{profesional.apellido}}</td>
+                    <td>{{profesional.documento}}</td>
+                    <td>{{profesional.profesion}}</td>
+                    <td>{{profesional.rol}}</td>
+                    <td>
+                      {% if user.is_superuser %}
+                        <a href="{% url 'ModProfesional' profesional.documento %}"><i class="fa-solid fa-pencil btn btn-mas"></i></a>
+                        <form method="POST" action="{% url 'Profesionales' %}" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este profesional?');">
+                          {% csrf_token %}
+                          <input type="hidden" name="profesional_documento" value="{{ profesional.documento }}">
+                          <button type="submit" name="eliminar" style="border: none; background: none; cursor: pointer;" aria-label="Eliminar profesional">
+                              <i class="fa-solid fa-trash btn btn-mas" style="color: red;"></i>
+                          </button>
+                        </form>
+                      {% else %}
+                        <p>No tienes permisos</p>
+                      {% endif %}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                    
+                </tbody>
+              </table>
+            </section>
+          {% else %}
+            <p style="color: #DBF227; font-size: 25px; text-align: center;">No se encontraron Profesionales .</p>        
+          {% endif %}
+        {% else %}
+          
+          
             
-        </section>
-        <section class="seccion-tabla">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">nombre</th>
-                <th scope="col">apellido</th>
-                <th scope="col">documento</th>
-                <th scope="col">profesion</th>
-                <th scope="col">rol</th>
-                <th scope="col">botones</th>
-                <th scope="col"><a href="{% url 'AddProfesional' %}"><i class="fa-solid fa-plus btn-mas btn">añadir</i></a></th>
-                
-              </tr>
-            </thead>
-            <tbody>
-              
+          
+            
+          <section class="seccion-tarjetas">
+            {% if profesionales %}
               {% for profesional in profesionales %}
-                <tr>
-                <td>{{profesional.nombre}}</td>
-                <td>{{profesional.apellido}}</td>
-                <td>{{profesional.documento}}</td>
-                <td>{{profesional.profesion}}</td>
-                <td>{{profesional.rol}}</td>
-                <td>
-                  <a href="{% url 'ModProfesional' profesional.documento %}"><i class="fa-solid fa-pencil btn btn-mas"></i></a>
-                  <form method="POST" action="{% url 'Profesionales' %}" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este profesional?');">
-                    {% csrf_token %}
-                    <input type="hidden" name="profesional_documento" value="{{ profesional.documento }}">
-                    <button type="submit" name="eliminar" style="border: none; background: none; cursor: pointer;" aria-label="Eliminar profesional">
-                        <i class="fa-solid fa-trash btn btn-mas" style="color: red;"></i>
-                    </button>
-                </form>
-                </td>
-              </tr>
+                <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                    <h5 class="card-title">{{profesional.nombre}}</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{profesional.apellido}}</h6>
+                    <p class="card-text">{{profesional.presentacion}}</p>
+                    <p class="card-text">{{profesional.profesion}}</p>
+                    <p class="card-text">{{profesional.rol}}</p>
+                  </div>
+                </div>
               {% endfor %}
-                
-            </tbody>
-          </table>
-        </section>
+            {% else %}
+            <p style="color: #DBF227; font-size: 25px; text-align: center;">No se encontraron Profesionales .</p>        
+            {% endif %}
+              
+          </section>
+        {% endif %}
+        
     </main>
 {% endblock contenido %}

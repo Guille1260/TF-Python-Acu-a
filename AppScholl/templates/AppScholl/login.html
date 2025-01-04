@@ -8,22 +8,23 @@
             <h1>LOGIN</h1>
         </div>
         
-        <form action="" class="formulario">
+        <form action="" method="post" class="formulario">
             {% csrf_token %}
-            {{ login.as_p }}
+            {{ form.as_p }}
+            
+            <!-- Mostrar mensajes de error debajo del formulario -->
             
             
             <button type="submit">Iniciar sesión</button>
         </form>
 
         <article class="conteiner-preguntas">
-            {% if messages %}
-                <div class="mensajes">
-                    {% for message in messages %}
-                        <div class="mensaje-error">{{ message }}</div>
-                    {% endfor %}
-                </div>
-            {% endif %}
+            
+                {% if mensaje %}
+                        <div class="mensaje-error " style="color: azure;">{{ mensaje }}</div>
+                {% endif %}
+            
+            <!-- Opcional: Aquí podrías agregar alguna pregunta como "Olvidaste tu contraseña?" -->
         </article>
     </section>
 </main>
